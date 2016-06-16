@@ -1,8 +1,7 @@
 import React from 'react'
 import USMap from '../components/USMap'
-import Navigation from '../components/Navigation'
-import { StyleSheet } from 'react-look'
 import EventsList from '../containers/EventsList'
+import { StyleSheet } from 'react-look'
 import { connect } from 'react-redux'
 import theme from '../theme'
 
@@ -11,7 +10,7 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   container: {
-    height: '100vh',
+    height: '100%',
     width: '100%',
     position: 'relative'
   },
@@ -126,7 +125,8 @@ function mapStateToProps(state) {
   }
 }
 
-class App extends React.Component {
+
+class Tour extends React.Component {
   static propTypes = {
     events: React.PropTypes.array,
     selectedState: React.PropTypes.string
@@ -183,34 +183,31 @@ class App extends React.Component {
 
   render() {
     return (
-      <div style={{ position: 'relative' }}>
-        <Navigation />
-        <div className={styles.container}>
-          {this.state.introMode ? '' : this.showTopMessage()}
-          <div className={styles.hero}>
-            {this.showWelcomeMessage()}
-            <div
-              className={styles.map}
-              style={this.state.introMode ? {
-                opacity: 0.3
-              } : {}}
-            >
-              <USMap events={this.props.events} />
-              <div>
-                {!this.state.introMode ?
-                  <EventsList
-                    events={this.props.events}
-                    selectedState={this.props.selectedState}
-                  /> :
-                  ''
-                }
-              </div>
-            </div>
+      <div className={styles.container}>
+        {this.state.introMode ? '' : this.showTopMessage()}
+        <div className={styles.hero}>
+          {this.showWelcomeMessage()}
+          <div
+            className={styles.map}
+            style={this.state.introMode ? {
+              opacity: 0.3
+            } : {}}
+          >
+            <USMap events={this.props.events} />
           </div>
+        </div>
+        <div>
+          {!this.state.introMode ?
+            <EventsList
+              events={this.props.events}
+              selectedState={this.props.selectedState}
+            /> :
+            ''
+          }
         </div>
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(Tour)
