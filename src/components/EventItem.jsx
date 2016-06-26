@@ -22,6 +22,7 @@ export default class EventItem extends React.Component {
     centerY: React.PropTypes.number.isRequired,
     radius: React.PropTypes.number.isRequired,
     scale: React.PropTypes.number.isRequired,
+    zoomLevel: React.PropTypes.number.isRequired,
     city: React.PropTypes.string.isRequired,
     state: React.PropTypes.string.isRequired,
     onClick: React.PropTypes.func.isRequired,
@@ -37,9 +38,22 @@ export default class EventItem extends React.Component {
     const { centerX, centerY, radius, scale, onClick } = this.props
     const scaledRadius = radius
     let strokeWidth = 2 / scale
+    var eventLabel;
+    if (this.props.zoomLevel > 1) {
+      eventLabel = <text
+        textAnchor="middle"
+        fontSize="6px"
+        x={centerX}
+        y={centerY-7}>
+        {this.props.city} 
+      </text>;
+    } else {
+      eventLabel = null;
+    }
 
     return (
       <g>
+        {eventLabel}
         <circle
           cx={centerX}
           cy={centerY}

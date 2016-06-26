@@ -262,6 +262,7 @@ class USMap extends React.Component {
                   onClick={() => {
                     this.setState({ selectedEvent: event })
                   }}
+                  zoomLevel={this.state.zoomLevel}
                   city={event.city}
                   state={event.state}
                   onMouseOver={(e) => this.hoverCircle(event, e)}
@@ -275,7 +276,7 @@ class USMap extends React.Component {
         {(this.state.mapScale !== InitialScale && this.state.mapScale) ?
             (<MapZoomOut
               onClick={() => {
-                this.setState({ mapScale: null, mapTranslate: null })
+                this.setState({ zoomLevel: USLevelZoom, mapScale: null, mapTranslate: null })
                 this.props.selectState(null)
               }}
             />)
